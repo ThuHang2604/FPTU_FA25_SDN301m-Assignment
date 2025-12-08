@@ -1,0 +1,25 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Quizzes</h2>
+    <a href="/quizzes/create" class="btn btn-primary">Create New Quiz</a>
+</div>
+
+<div class="list-group">
+    {{#if quizzes}}
+        {{#each quizzes}}
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="/quizzes/{{_id}}/details" class="text-decoration-none fs-5">
+                    {{title}}
+                </a>
+                <div class="d-flex">
+                    <a href="/quizzes/{{_id}}/edit" class="btn btn-sm btn-warning me-2">Sửa</a>
+                    {{!-- Handlebars không hỗ trợ method-override trực tiếp, ta dùng form action và hidden input --}}
+                    <form action="/quizzes/{{_id}}?_method=DELETE" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa Quiz {{title}}?');">
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        {{/each}}
+    {{else}}
+        <p class="text-muted">Chưa có Quiz nào trong hệ thống.</p>
+    {{/if}}
+</div>

@@ -1,0 +1,25 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Questions</h2>
+    <a href="/questions/create" class="btn btn-primary">Create New Question</a>
+</div>
+
+<div class="list-group">
+    {{#if questions}}
+        {{#each questions}}
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="/questions/{{_id}}/details" class="text-decoration-none fs-5">
+                    {{text}}
+                </a>
+                <div class="d-flex">
+                    <a href="/questions/{{_id}}/edit" class="btn btn-sm btn-warning me-2">Sửa</a>
+                    {{!-- Form dùng method-override để gửi DELETE request --}}
+                    <form action="/questions/{{_id}}?_method=DELETE" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa câu hỏi này không?');">
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        {{/each}}
+    {{else}}
+        <p class="text-muted">Chưa có Câu hỏi nào trong hệ thống.</p>
+    {{/if}}
+</div>

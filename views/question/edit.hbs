@@ -1,0 +1,41 @@
+<h2>Edit Question</h2>
+
+{{#if error}}
+    <div class="alert alert-danger" role="alert">
+        <strong>Lỗi:</strong> {{error}}
+    </div>
+{{/if}}
+
+<form action="/questions/{{question._id}}?_method=PUT" method="POST">
+    
+    <div class="mb-3">
+        <label for="quizId" class="form-label">Associated Quiz:</label>
+        <select class="form-select" id="quizId" name="quizId" required>
+            <option value="">-- Chọn Quiz --</option>
+            {{#each quizzes}}
+                {{!-- Sử dụng Helper 'eq' để so sánh ObjectId của Quiz hiện tại với ID của Quiz trong danh sách --}}
+                <option value="{{_id}}" {{#if (eq ../question.quizId _id)}}selected{{/if}}>
+                    {{title}}
+                </option>
+            {{/each}}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="text" class="form-label">Question Text:</label>
+        <input type="text" class="form-control" id="text" name="text" value="{{question.text}}" required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="options" class="form-label">Options (comma separated):</label>
+        {{!-- question.optionsString được tạo trong routes/question.js --}}
+        <input type="text" class="form-control" id="options" name="options" value="{{question.optionsString}}" required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="correctAnswerIndex" class="form-label">Correct Answer Index:</label>
+        <input type="number" class="form-control" id="correctAnswerIndex" name="correctAnswerIndex" value="{{question.correctAnswerIndex}}" min="0" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

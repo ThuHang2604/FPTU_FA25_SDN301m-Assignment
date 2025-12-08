@@ -1,0 +1,21 @@
+<h1>{{question.text}}</h1>
+
+<div class="card p-3 mb-4">
+    <p class="mb-1"><strong>Quiz:</strong> <a href="/quizzes/{{quiz._id}}/details">{{quiz.title}}</a></p>
+    <p class="mb-1"><strong>Keywords:</strong> {{#if question.keywords}}{{question.keywords}}{{else}}N/A{{/if}}</p>
+    <p class="mb-0"><strong>Correct Answer Index:</strong> {{question.correctAnswerIndex}} (Index 0)</p>
+</div>
+
+<h4 class="mt-4">Options:</h4>
+<ul class="list-group">
+    {{#each question.options as |option index|}}
+        <li class="list-group-item {{#if (isCorrect index question.correctAnswerIndex)}}list-group-item-success fw-bold{{/if}}">
+            {{option}} 
+            {{#if (isCorrect index question.correctAnswerIndex)}}
+                <span class="badge bg-success float-end">Correct</span>
+            {{/if}}
+        </li>
+    {{/each}}
+</ul>
+
+<a href="/questions/{{question._id}}/edit" class="btn btn-warning mt-4">Edit Question</a>

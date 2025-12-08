@@ -1,0 +1,20 @@
+<h1>{{quiz.title}}</h1>
+<p class="lead text-muted">{{quiz.description}}</p>
+
+<a href="/quizzes/{{quiz._id}}/edit" class="btn btn-warning mb-4">Edit Quiz</a>
+
+<h3 class="mt-4">Questions (Tổng: {{quiz.questions.length}})</h3>
+
+{{#if quiz.questions}}
+    <div class="list-group">
+        {{#each quiz.questions}}
+            <div class="list-group-item">
+                <a href="/questions/{{_id}}/details">
+                    {{text}}
+                </a>
+            </div>
+        {{/each}}
+    </div>
+{{else}}
+    <p class="text-info">Quiz này chưa có câu hỏi nào.</p>
+{{/if}}

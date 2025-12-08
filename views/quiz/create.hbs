@@ -1,0 +1,20 @@
+<h2>Create New Quiz</h2>
+
+{{#if error}}
+    <div class="alert alert-danger" role="alert">
+        <strong>Lỗi:</strong> {{error}}
+    </div>
+{{/if}}
+
+<form action="/quizzes" method="POST">
+    <div class="mb-3">
+        <label for="title" class="form-label">Title:</label>
+        {{!-- Nếu có lỗi, Handlebars sẽ giữ lại giá trị cũ của form (quiz.title) --}}
+        <input type="text" class="form-control" id="title" name="title" value="{{quiz.title}}" required>
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description:</label>
+        <textarea class="form-control" id="description" name="description">{{quiz.description}}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
