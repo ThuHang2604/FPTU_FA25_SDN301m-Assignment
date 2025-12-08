@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Trang chủ
 router.get('/', (req, res) => {
-    res.render('index', { title: 'Trang Chủ' });
+    res.render('index.ejs', { title: 'Trang Chủ' });
 });
 
 module.exports = router;

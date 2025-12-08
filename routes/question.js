@@ -22,7 +22,7 @@ const fetchQuizzes = async () => {
 router.get('/', async (req, res) => {
     try {
         const response = await client.get('/questions');
-        res.render('question/list', { 
+        res.render('question/list.ejs', { 
             questions: response.data, 
             title: 'Quản lý Câu Hỏi' 
         });
@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
 router.get('/create', async (req, res) => {
     try {
         const quizzes = await fetchQuizzes();
-        res.render('question/create', { 
+        res.render('question/create.ejs', { 
             title: 'Tạo Câu Hỏi Mới', 
             quizzes: quizzes,
             error: null 
@@ -64,7 +64,7 @@ router.post('/', async (req, res) => {
         console.error("Lỗi khi tạo Question:", errorMessage);
         const quizzes = await fetchQuizzes();
 
-        res.render('question/create', { 
+        res.render('question/create.ejs', { 
             title: 'Tạo Câu Hỏi Mới',
             error: errorMessage,
             quizzes: quizzes,
@@ -80,7 +80,7 @@ router.get('/:id/details', async (req, res) => {
         // Lấy thêm thông tin Quiz để hiển thị
         const quizResponse = await client.get(`/quizzes/${response.data.quizId}`);
         
-        res.render('question/details', { 
+        res.render('question/details.ejs', { 
             question: response.data, 
             quiz: quizResponse.data,
             title: `Chi tiết Câu Hỏi: ${response.data.text.substring(0, 30)}...` 
@@ -103,7 +103,7 @@ router.get('/:id/edit', async (req, res) => {
         // Chuyển mảng options thành chuỗi để hiển thị trong form
         question.optionsString = question.options.join(', ');
 
-        res.render('question/edit', { 
+        res.render('question/edit.ejs', { 
             question: question, 
             quizzes: quizzes,
             title: `Sửa Câu Hỏi`,
@@ -134,7 +134,7 @@ router.put('/:id', async (req, res) => {
         const quizzes = await fetchQuizzes();
         const question = { _id: questionId, ...req.body, optionsString: req.body.options };
 
-        res.render('question/edit', {
+        res.render('question/edit.ejs', {
             title: 'Sửa Câu Hỏi',
             error: errorMessage,
             quizzes: quizzes,

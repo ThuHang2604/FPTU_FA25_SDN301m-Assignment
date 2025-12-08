@@ -19,7 +19,7 @@ const client = axios.create({
 router.get('/', async (req, res) => {
     try {
         const response = await client.get('/quizzes');
-        res.render('quiz/list', { 
+        res.render('quiz/list.ejs', { 
             quizzes: response.data, 
             title: 'Quản lý Quizzes' 
         });
@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
 
 // GET: /quizzes/create - Hiển thị form tạo Quiz mới
 router.get('/create', (req, res) => {
-    res.render('quiz/create', { title: 'Tạo Quiz Mới', error: null });
+    res.render('quiz/create.ejs', { title: 'Tạo Quiz Mới', error: null });
 });
 
 // POST: /quizzes - Xử lý tạo Quiz mới
@@ -45,7 +45,7 @@ router.post('/', async (req, res) => {
         const errorMessage = err.response ? (err.response.data.error || 'Lỗi không xác định') : 'Không thể kết nối API.';
         console.error("Lỗi khi tạo Quiz:", errorMessage);
         // Render lại form kèm theo thông báo lỗi
-        res.render('quiz/create', { 
+        res.render('quiz/create.ejs', { 
             title: 'Tạo Quiz Mới',
             error: errorMessage,
             // Giữ lại giá trị cũ của form để người dùng không phải nhập lại
@@ -59,7 +59,7 @@ router.get('/:id/details', async (req, res) => {
     try {
         // API controller đã tự động populate questions
         const response = await client.get(`/quizzes/${req.params.id}`); 
-        res.render('quiz/details', { 
+        res.render('quiz/details.ejs', { 
             quiz: response.data, 
             title: `Chi tiết Quiz: ${response.data.title}` 
         });
@@ -73,7 +73,7 @@ router.get('/:id/details', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
     try {
         const response = await client.get(`/quizzes/${req.params.id}`);
-        res.render('quiz/edit', { 
+        res.render('quiz/edit.ejs', { 
             quiz: response.data, 
             title: `Sửa Quiz: ${response.data.title}`,
             error: null
@@ -96,7 +96,7 @@ router.put('/:id', async (req, res) => {
         console.error("Lỗi khi cập nhật Quiz:", errorMessage);
         // Lấy lại dữ liệu quiz cũ (chỉ cần id) để render form lỗi
         const quiz = { _id: quizId, ...req.body };
-        res.render('quiz/edit', {
+        res.render('quiz/edit.ejs', {
             title: 'Sửa Quiz',
             error: errorMessage,
             quiz: quiz
