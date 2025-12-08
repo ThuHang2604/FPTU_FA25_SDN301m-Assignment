@@ -1,0 +1,15 @@
+<%- include('partials/header.ejs', { title: title }) %>
+
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Chào mừng đến với Ứng dụng Quản lý Ngân hàng Câu hỏi!</h1>
+        <p class="col-md-8 fs-4">Ứng dụng này cho phép bạn quản lý các bài Quiz và các Câu hỏi liên quan thông qua giao diện người dùng được xây dựng bằng EJS và Bootstrap.</p>
+        <hr class="my-4">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <a href="/quizzes" class="btn btn-primary btn-lg">Quản lý Quizzes</a>
+            <a href="/questions" class="btn btn-secondary btn-lg">Quản lý Câu Hỏi</a>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer.ejs') %>

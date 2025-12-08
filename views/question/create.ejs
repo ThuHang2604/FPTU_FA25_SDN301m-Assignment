@@ -1,0 +1,45 @@
+<%- include('../partials/header.ejs', { title: title }) %>
+
+<h2>Create New Question</h2>
+
+<% if (error) { %>
+    <div class="alert alert-danger" role="alert">
+        <strong>Lỗi:</strong> <%= error %>
+    </div>
+<% } %>
+
+<form action="/questions" method="POST">
+    <div class="mb-3">
+        <label for="quizId" class="form-label">Associated Quiz:</label>
+        <select class="form-select" id="quizId" name="quizId" required>
+            <option value="">-- Chọn Quiz --</option>
+            <% quizzes.forEach(quiz => { %>
+                <option value="<%= quiz._id %>" <%= typeof question !== 'undefined' && question.quizId === quiz._id.toString() ? 'selected' : '' %>>
+                    <%= quiz.title %>
+                </option>
+            <% }) %>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="text" class="form-label">Question Text:</label>
+        <input type="text" class="form-control" id="text" name="text" value="<%= typeof question !== 'undefined' ? question.text : '' %>" required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="options" class="form-label">Options (comma separated):</label>
+        <input type="text" class="form-control" id="options" name="options" value="<%= typeof question !== 'undefined' ? question.options : '' %>" placeholder="Option 1, Option 2, Option 3, Option 4" required>
+        <small class="form-text text-muted">Ví dụ: Paris, London, Berlin, Madrid</small>
+    </div>
+    
+    <div class="mb-3">
+        <label for="correctAnswerIndex" class="form-label">Correct Answer Index:</label>
+        <input type="number" class="form-control" id="correctAnswerIndex" name="correctAnswerIndex" value="<%= typeof question !== 'undefined' ? question.correctAnswerIndex : 0 %>" min="0" required>
+        <small class="form-text text-muted">Index bắt đầu từ 0. Nếu "Paris" là đáp án đầu tiên, index là 0.</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+
+
+<%- include('../partials/footer.ejs') %>

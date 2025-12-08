@@ -1,0 +1,24 @@
+<%- include('../partials/header.ejs', { title: title }) %>
+
+<h2>Edit Quiz</h2>
+
+<% if (error) { %>
+    <div class="alert alert-danger" role="alert">
+        <strong>Lỗi:</strong> <%= error %>
+    </div>
+<% } %>
+
+<form action="/quizzes/<%= quiz._id %>?_method=PUT" method="POST">
+    <div class="mb-3">
+        <label for="title" class="form-label">Title:</label>
+        <input type="text" class="form-control" id="title" name="title" value="<%= quiz.title %>" required>
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description:</label>
+        <textarea class="form-control" id="description" name="description"><%= quiz.description %></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+
+
+<%- include('../partials/footer.ejs') %>

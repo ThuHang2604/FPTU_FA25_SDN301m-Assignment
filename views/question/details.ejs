@@ -1,0 +1,26 @@
+<%- include('../partials/header.ejs', { title: title }) %>
+
+<h1><%= question.text %></h1>
+
+<div class="card p-3 mb-4">
+    <p class="mb-1"><strong>Quiz:</strong> <a href="/quizzes/<%= quiz._id %>/details"><%= quiz.title %></a></p>
+    <p class="mb-1"><strong>Keywords:</strong> <%= question.keywords.join(', ') || 'N/A' %></p>
+    <p class="mb-0"><strong>Correct Answer Index:</strong> <%= question.correctAnswerIndex %> (Index 0)</p>
+</div>
+
+<h4 class="mt-4">Options:</h4>
+<ul class="list-group">
+    <% question.options.forEach((option, index) => { %>
+        <li class="list-group-item <%= index === question.correctAnswerIndex ? 'list-group-item-success fw-bold' : '' %>">
+            <%= option %> 
+            <% if (index === question.correctAnswerIndex) { %>
+                <span class="badge bg-success float-end">Correct</span>
+            <% } %>
+        </li>
+    <% }) %>
+</ul>
+
+
+<a href="/questions/<%= question._id %>/edit" class="btn btn-warning mt-4">Edit Question</a>
+
+<%- include('../partials/footer.ejs') %>

@@ -1,0 +1,29 @@
+<%- include('../partials/header.ejs', { title: title }) %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Quizzes</h2>
+    <a href="/quizzes/create" class="btn btn-primary">Create New Quiz</a>
+</div>
+
+
+<div class="list-group">
+    <% if (quizzes && quizzes.length > 0) { %>
+        <% quizzes.forEach(quiz => { %>
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="/quizzes/<%= quiz._id %>/details" class="text-decoration-none fs-5">
+                    <%= quiz.title %>
+                </a>
+                <div class="d-flex">
+                    <a href="/quizzes/<%= quiz._id %>/edit" class="btn btn-sm btn-warning me-2">Sửa</a>
+                    <form action="/quizzes/<%= quiz._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa Quiz <%= quiz.title %>? Thao tác này sẽ xóa tất cả các câu hỏi liên quan.');">
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        <% }) %>
+    <% } else { %>
+        <p class="text-muted">Chưa có Quiz nào trong hệ thống.</p>
+    <% } %>
+</div>
+
+<%- include('../partials/footer.ejs') %>

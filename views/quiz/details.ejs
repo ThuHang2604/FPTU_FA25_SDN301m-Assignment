@@ -1,0 +1,24 @@
+<%- include('../partials/header.ejs', { title: title }) %>
+
+<h1><%= quiz.title %></h1>
+<p class="lead text-muted"><%= quiz.description %></p>
+
+<a href="/quizzes/<%= quiz._id %>/edit" class="btn btn-warning mb-4">Edit Quiz</a>
+
+<h3 class="mt-4">Questions (Tổng: <%= quiz.questions.length %>)</h3>
+
+<% if (quiz.questions && quiz.questions.length > 0) { %>
+    <div class="list-group">
+        <% quiz.questions.forEach(question => { %>
+            <div class="list-group-item">
+                <a href="/questions/<%= question._id %>/details">
+                    <%= question.text %>
+                </a>
+            </div>
+        <% }) %>
+    </div>
+<% } else { %>
+    <p class="text-info">Quiz này chưa có câu hỏi nào.</p>
+<% } %>
+
+<%- include('../partials/footer.ejs') %>
