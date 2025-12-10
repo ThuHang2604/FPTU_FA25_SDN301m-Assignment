@@ -1,5 +1,5 @@
 const Question = require("../models/question.model");
-const Quiz = require("../models/quiz.model"); // <-- thêm
+const Quiz = require("../models/quiz.model"); 
 
 exports.getAllQuestions = async (req, res) => {
   try {
@@ -28,6 +28,8 @@ exports.createQuestion = async (req, res) => {
     const quiz = await Quiz.findById(quizId);
     if (!quiz) return res.status(404).json({ message: "Quiz not found" });
 
+    const author = req.user._id;
+
     if (!Array.isArray(options) || options.length < 2) {
       return res.status(400).json({ message: "options must be an array with at least 2 items" });
     }
@@ -36,7 +38,10 @@ exports.createQuestion = async (req, res) => {
     }
     if (!text) return res.status(400).json({ message: "text is required" });
 
-    const newQuestion = await Question.create(req.body);
+    const newQuestion = await Question.create({
+        ...req.body,
+        author: author // Lưu author
+    });
 
     // push to quiz.questions
     await Quiz.findByIdAndUpdate(quizId, { $push: { questions: newQuestion._id } });
@@ -83,7 +88,8 @@ exports.createQuestionByQuizId = async (req, res) => {
     const quiz = await Quiz.findById(quizId);
     if (!quiz) return res.status(404).json({ message: "Quiz not found" });
 
-    const data = { ...req.body, quizId };
+    const author = req.user._id; // Lấy ID user
+    const data = { ...req.body, quizId, author };
 
     if (!Array.isArray(data.options) || data.options.length < 2) {
       return res.status(400).json({ message: "options must be an array with at least 2 items" });
