@@ -19,6 +19,10 @@ app.use(async (req, res, next) => {
     next();
 });
 
+app.get("/", (req, res) => {
+    res.send("✅ Hello! Quiz App API is running...");
+});
+
 // Routes
 app.use("/quizzes", require("./routes/quiz.routes"));
 app.use("/questions", require("./routes/question.routes"));
