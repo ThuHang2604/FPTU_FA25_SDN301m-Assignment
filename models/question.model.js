@@ -17,7 +17,8 @@ const QuestionSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  quizId: { type: mongoose.Schema.Types.ObjectId, ref: "Quiz", required: true }
+  quizId: { type: mongoose.Schema.Types.ObjectId, ref: "Quiz", required: true },
+  author: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
 });
 
 module.exports = mongoose.model("Question", QuestionSchema);
